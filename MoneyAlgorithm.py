@@ -12,18 +12,16 @@ def InputMaker():
     file.close()
     return products,devider,priceArray
 
-def Algorithm(priceArray,devider,products):
-    total = 0
-    rest = 0
+def Algorithm(priceArray,devider,products,divCounter,total,rest):
     for index,n in enumerate(priceArray):
-        if  index < len(priceArray)-2 and priceArray[index+2] > roundup(priceArray[index+2]):
+        if  index < len(priceArray)-2 and priceArray[index+2] >= roundup(priceArray[index+2]):
             total = total + n
-        else:
+        elif divCounter < devider:
             splitArr(priceArray, products, index)
+            Algorithm(priceArray,devider,len(priceArray),divCounter+1,total,rest)
     for n in priceArray:
         rest = rest + n
-    total = roundup(total) + roundup(rest)
-    sys.stdout.write(str(total))
+    return  roundup(total) + roundup(rest)
 
 def splitArr(arr, n, k):  
     for i in range(0, k):  
@@ -34,4 +32,5 @@ def roundup(x):
 
 if __name__ == "__main__":
     products,devider,priceArray = InputMaker()
-    Algorithm(priceArray,devider,products)
+    total = Algorithm(priceArray,devider,products,0,0,0)
+    sys.stdout.write(str(total))
