@@ -4,7 +4,7 @@ import math
 #The following function creates an adjacency matrix to represent a directed graph.
 def InputMaker():
 
-    file = open('sample-1.in', 'r')
+    file = open('sample-3.in', 'r')
     # file = sys.stdin
 
     products, devider = map(int,file.readline().split())
@@ -18,6 +18,9 @@ def Algorithm(priceArray,devider,products,divCounter,total,rest):
             total = total + n
         elif divCounter < devider:
             splitArr(priceArray, products, index)
+            if index < len(priceArray)-1:
+                priceArray.pop(index)
+                total = total + n
             Algorithm(priceArray,devider,len(priceArray),divCounter+1,total,rest)
     for n in priceArray:
         rest = rest + n
@@ -28,13 +31,13 @@ def splitArr(arr, n, k):
         arr.pop(0)
           
 def roundup(x):
-    if x % 10 <= 3 or x % 10 <= 7 and x % 10 >= 5:
+    if x % 10 <= 3 or x % 10 < 8 and x % 10 >= 5:
         return int(math.floor(x / 5.0) * 5)
     else:
         return int(math.ceil(x / 5.0) * 5)
 
 def check(x):
-    if x % 10 <= 3 or x % 10 <= 7 and x % 10 >= 5:
+    if x % 10 <= 3 or x % 10 < 8 and x % 10 >= 5:
          return True
     else:
         return False
